@@ -42,10 +42,6 @@ if ($fileName) {
         }
 
         $userProfile = "UPDATE user_profile SET fullname = '$fullname', phone = '$phone', identity_card = '$newFileName' WHERE id_user = $id ";
-        echo json_encode($userProfile);
-        die;
-
-
         $conn->query($userProfile);
 
         if($conn->query($user) === FALSE && $conn->query($userProfile) === FALSE){

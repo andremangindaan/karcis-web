@@ -1,18 +1,18 @@
 <?php
 include "header.php";
 
-$id_booking = htmlspecialchars(htmlentities(@$_GET['IDBOOKING']));
+$id_booking = htmlspecialchars(@$_GET['IDBOOKING'], ENT_QUOTES, 'UTF-8');
 $id_user = @$_SESSION['id'];
+
+$id_booking = mysqli_real_escape_string($conn, $id_booking);
 
 // get data user
 $ticket = "SELECT tickets.*, booking.id as id_booking, booking.price as booking_price, booking.id_user, user_profile.fullname 
-FROM booking 
-LEFT JOIN user_profile ON user_profile.id_user = booking.id_user 
-LEFT JOIN tickets ON tickets.id = booking.id_ticket 
-WHERE booking.id = $id_booking AND booking.id_user = $id_user";
-
+        FROM booking 
+        LEFT JOIN user_profile ON user_profile.id_user = booking.id_user 
+        LEFT JOIN tickets ON tickets.id = booking.id_ticket 
+        WHERE booking.id = $id_booking AND booking.id_user = $id_user";
 $result = $conn->query($ticket);
-
 ?>
 
 <div class="bg-navy  montserrat">
